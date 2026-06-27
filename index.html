@@ -3,26 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PGI — Sistem Input Data Gadai</title>
+<title>Input Data Gadai — PGI</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:        #0f2044;
-  --navy-mid:    #1a3560;
-  --navy-light:  #243f72;
-  --blue:        #1d4ed8;
+  --blue:        #1e40af;
   --blue-mid:    #2563eb;
   --blue-light:  #dbeafe;
   --blue-xlight: #eff6ff;
-  --gold:        #c9860a;
-  --gold-light:  #fef3c7;
-  --gold-xlight: #fffbeb;
+  --blue-dark:   #1e3a8a;
   --white:       #ffffff;
   --gray-50:     #f8fafc;
   --gray-100:    #f1f5f9;
   --gray-200:    #e2e8f0;
   --gray-400:    #94a3b8;
-  --gray-500:    #64748b;
   --gray-600:    #475569;
   --gray-800:    #1e293b;
   --green:       #059669;
@@ -31,14 +25,16 @@
   --amber-light: #fef3c7;
   --red:         #dc2626;
   --red-light:   #fee2e2;
-  --sidebar-w:   256px;
-  --font-head:   'Plus Jakarta Sans', sans-serif;
-  --font-body:   'Inter', sans-serif;
+  --purple:      #7c3aed;
+  --purple-light:#ede9fe;
   --radius:      10px;
   --radius-lg:   14px;
   --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow:      0 4px 16px rgba(15,32,68,0.10);
-  --shadow-lg:   0 8px 32px rgba(15,32,68,0.16);
+  --shadow:      0 4px 16px rgba(30,64,175,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:   0 8px 32px rgba(30,64,175,0.12);
+  --sidebar-w:   250px;
+  --font-head:   'Plus Jakarta Sans', sans-serif;
+  --font-body:   'Inter', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,252 +42,158 @@ body { font-family: var(--font-body); background: var(--gray-50); color: var(--g
 
 /* ── SIDEBAR ── */
 .sidebar {
-  width: var(--sidebar-w); background: var(--navy);
+  width: var(--sidebar-w); background: var(--blue-dark);
   display: flex; flex-direction: column; position: fixed;
   top: 0; left: 0; height: 100vh; z-index: 100; overflow-y: auto;
 }
-.sidebar-brand {
-  padding: 22px 20px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-.brand-logo {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-}
-.brand-icon {
-  width: 38px; height: 38px; background: linear-gradient(135deg, var(--gold), #f59e0b);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(201,134,10,0.35);
-}
-.brand-text-wrap {}
-.brand-title { font-family: var(--font-head); font-size: 15px; font-weight: 800; color: white; line-height: 1.2; }
-.brand-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.04em; }
-.brand-cabang {
-  background: rgba(201,134,10,0.15); border: 1px solid rgba(201,134,10,0.3);
-  border-radius: 8px; padding: 8px 12px;
-}
-.cabang-label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
-.cabang-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #fcd34d; margin-top: 2px; }
-.cabang-code { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.sidebar-brand { padding: 22px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.brand-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(59,130,246,0.25); border: 1px solid rgba(59,130,246,0.35); padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; }
+.brand-badge span { font-size: 10px; font-weight: 700; color: #93c5fd; letter-spacing: 0.08em; text-transform: uppercase; }
+.brand-title { font-family: var(--font-head); font-size: 15px; font-weight: 800; color: white; line-height: 1.3; }
+.brand-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
 
-.sidebar-date { padding: 10px 20px; font-size: 11px; color: rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.05); }
+/* Cabang selector in sidebar */
+.cabang-selector { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.cabang-selector label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 6px; }
+.cabang-selector select {
+  width: 100%; padding: 7px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08); color: white; font-size: 12px; font-weight: 600;
+  font-family: var(--font-body); cursor: pointer; outline: none;
+}
+.cabang-selector select option { background: #1e3a8a; color: white; }
+.cabang-selector select:focus { border-color: rgba(59,130,246,0.5); }
 
+.sidebar-date { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.06); }
 .nav { padding: 10px 12px; flex: 1; }
-.nav-section { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.25); letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px 6px; margin-top: 10px; }
-.nav-item {
-  display: flex; align-items: center; gap: 10px; padding: 9px 10px;
-  border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500;
-  color: rgba(255,255,255,0.55); transition: all 0.15s; margin-bottom: 2px;
-}
-.nav-item:hover { background: rgba(255,255,255,0.06); color: white; }
-.nav-item.active { background: rgba(37,99,235,0.3); color: white; border: 1px solid rgba(37,99,235,0.4); }
-.nav-item .ni { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
-.nav-badge { margin-left: auto; background: var(--red); color: white; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 700; }
+.nav-section { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px 8px; margin-top: 8px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6); transition: all 0.15s; margin-bottom: 2px; }
+.nav-item:hover { background: rgba(255,255,255,0.07); color: white; }
+.nav-item.active { background: rgba(59,130,246,0.25); color: white; border: 1px solid rgba(59,130,246,0.3); }
+.nav-item .ni { font-size: 15px; width: 20px; text-align: center; }
 
-.sidebar-tools {
-  padding: 12px 12px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  display: flex; flex-direction: column; gap: 6px;
-}
-.tool-btn {
-  display: flex; align-items: center; gap: 8px; padding: 8px 10px;
-  border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
-  border: none; font-family: var(--font-body); width: 100%; text-align: left;
-  transition: all 0.15s;
-}
-.tool-btn-primary { background: var(--blue-mid); color: white; }
-.tool-btn-primary:hover { background: #1d4ed8; }
-.tool-btn-secondary { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65); }
-.tool-btn-secondary:hover { background: rgba(255,255,255,0.11); color: white; }
-.tool-btn-danger { background: rgba(220,38,38,0.12); color: #fca5a5; }
-.tool-btn-danger:hover { background: rgba(220,38,38,0.22); }
-.sync-status { font-size: 10px; color: rgba(255,255,255,0.3); text-align: center; padding: 1px 0; }
-.sidebar-version { padding: 8px 20px 12px; font-size: 9px; color: rgba(255,255,255,0.18); }
+.sync-bar { padding: 10px 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+.sync-indicator { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,0.05); }
+.sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-400); flex-shrink: 0; transition: background 0.3s; }
+.sync-dot.green { background: #34d399; box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+.sync-dot.red   { background: #f87171; }
+.sync-dot.spin  { background: #60a5fa; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+.sync-text { font-size: 11px; color: rgba(255,255,255,0.4); flex: 1; }
+.sidebar-version { padding: 8px 20px 12px; font-size: 10px; color: rgba(255,255,255,0.2); }
 
 /* ── MAIN ── */
-.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-width: 0; }
-
-.topbar {
-  background: white; border-bottom: 1px solid var(--gray-200);
-  padding: 0 28px; height: 58px; display: flex; align-items: center;
-  justify-content: space-between; position: sticky; top: 0; z-index: 50;
-  box-shadow: var(--shadow-sm);
-}
-.topbar-left { display: flex; align-items: center; gap: 10px; }
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; }
+.topbar { background: white; border-bottom: 1px solid var(--gray-200); padding: 0 28px; height: 58px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; box-shadow: var(--shadow-sm); }
+.topbar-left { display: flex; align-items: center; gap: 12px; }
 .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 20px; height: 2px; background: var(--gray-600); margin: 4px 0; border-radius: 2px; }
 .page-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--gray-800); }
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-.url-field {
-  display: flex; align-items: center; gap: 6px;
-}
-.url-label { font-size: 11px; color: var(--gray-400); white-space: nowrap; }
-.url-input {
-  width: 280px; padding: 6px 10px; border: 1.5px solid var(--gray-200);
-  border-radius: 7px; font-size: 11px; font-family: var(--font-body);
-  color: var(--gray-800); outline: none;
-}
-.url-input:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
-.url-input.connected { border-color: var(--green); background: #f0fdf4; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.cabang-pill { display: flex; align-items: center; gap: 6px; background: var(--blue-xlight); border: 1px solid var(--blue-light); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--blue); }
 
 .content { padding: 24px 28px; flex: 1; }
 .page { display: none; }
 .page.active { display: block; }
 
 /* ── STATS ── */
-.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
-.stat-card {
-  background: white; border-radius: var(--radius-lg); padding: 16px 18px;
-  box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);
-  position: relative; overflow: hidden;
-}
-.stat-card::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--blue-mid);
-}
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 20px; }
+.stat-card { background: white; border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); position: relative; overflow: hidden; }
+.stat-card::after { content:''; position:absolute; top:0;left:0;right:0; height:3px; background: var(--blue-mid); }
 .stat-card.green::after { background: var(--green); }
 .stat-card.amber::after { background: var(--amber); }
 .stat-card.red::after   { background: var(--red); }
-.stat-card.gold::after  { background: var(--gold); }
-.stat-label { font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px; }
-.stat-value { font-family: var(--font-head); font-size: 26px; font-weight: 800; color: var(--navy); line-height: 1; }
+.stat-label { font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+.stat-value { font-family: var(--font-head); font-size: 26px; font-weight: 800; color: var(--blue); line-height: 1; }
 .stat-card.green .stat-value { color: var(--green); }
 .stat-card.amber .stat-value { color: var(--amber); }
 .stat-card.red   .stat-value { color: var(--red); }
-.stat-card.gold  .stat-value { color: var(--gold); }
 .stat-sub { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
 
 /* ── CARD ── */
-.card {
-  background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
-  box-shadow: var(--shadow-sm); margin-bottom: 18px;
-}
-.card-header {
-  padding: 14px 18px; border-bottom: 1px solid var(--gray-100);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 8px;
-}
-.card-title { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--gray-800); display: flex; align-items: center; gap: 7px; }
+.card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); margin-bottom: 18px; }
+.card-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.card-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--gray-800); display: flex; align-items: center; gap: 8px; }
 .card-body { padding: 18px; }
 .card-body-tight { padding: 0; }
 
 /* ── IMPORT BOX ── */
-.import-box {
-  border: 1.5px solid var(--blue-light); border-radius: var(--radius-lg);
-  background: var(--blue-xlight); padding: 18px; margin-bottom: 18px;
-}
-.import-title { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.import-box { border: 2px solid var(--blue-light); border-radius: var(--radius-lg); background: var(--blue-xlight); padding: 18px; margin-bottom: 18px; }
+.import-title { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
 .import-steps { font-size: 12px; color: var(--gray-600); line-height: 1.9; margin-bottom: 12px; }
 .import-steps b { color: var(--blue); }
-.import-steps code { background: var(--blue-light); color: var(--navy); padding: 1px 5px; border-radius: 4px; font-size: 11px; }
 
 /* ── FORM ── */
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-.form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-.form-group label { display: block; font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; padding: 8px 11px; border: 1.5px solid var(--gray-200); border-radius: 8px;
-  font-size: 13px; font-family: var(--font-body); color: var(--gray-800); background: white;
-  outline: none; transition: all 0.15s;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
-}
-.form-group textarea { resize: vertical; min-height: 90px; font-size: 12px; line-height: 1.6; }
+.form-group label { display: block; font-size: 10px; font-weight: 700; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 11px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 13px; font-family: var(--font-body); color: var(--gray-800); background: white; outline: none; transition: all 0.15s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+.form-group textarea { resize: vertical; min-height: 88px; font-size: 12px; font-family: monospace; line-height: 1.6; }
 
 /* ── BUTTONS ── */
 .btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; font-family: var(--font-body); display: inline-flex; align-items: center; gap: 6px; }
-.btn-primary { background: var(--blue-mid); color: white; }
+.btn-primary { background: var(--blue-mid); color: white; border-color: var(--blue-mid); }
 .btn-primary:hover { background: #1d4ed8; }
 .btn-outline { background: white; color: var(--gray-600); border-color: var(--gray-200); }
 .btn-outline:hover { background: var(--gray-50); }
 .btn-sm { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
-.btn-red-sm   { background: var(--red-light);   color: var(--red);   border: 1px solid #fca5a5; padding: 4px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: var(--font-body); }
+.btn-red-sm { background: var(--red-light); color: var(--red); border: 1px solid #fca5a5; padding: 4px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: var(--font-body); }
 .btn-green-sm { background: var(--green-light); color: var(--green); border: 1px solid #6ee7b7; padding: 4px 10px; font-size: 11px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: var(--font-body); }
 
 /* ── TABLE ── */
 .tbl-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-th { font-size: 10px; font-weight: 700; color: var(--gray-400); text-align: left; padding: 9px 12px; border-bottom: 2px solid var(--gray-100); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em; background: var(--gray-50); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { font-size: 10px; font-weight: 700; color: var(--gray-400); text-align: left; padding: 9px 12px; border-bottom: 2px solid var(--gray-100); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.04em; background: var(--gray-50); }
 td { padding: 10px 12px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: #f8faff; }
+tr:hover td { background: var(--blue-xlight); }
 .name-cell { font-weight: 600; font-size: 13px; }
 .sub-text { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
 .actions { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
 
 /* ── BADGE ── */
 .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.b-blue   { background: var(--blue-light); color: var(--blue); }
-.b-green  { background: var(--green-light); color: var(--green); }
-.b-amber  { background: var(--amber-light); color: var(--amber); }
-.b-red    { background: var(--red-light); color: var(--red); }
-.b-gray   { background: var(--gray-100); color: var(--gray-600); }
-.b-gold   { background: var(--gold-light); color: var(--gold); }
-.b-navy   { background: #e0e7ff; color: var(--navy); }
+.b-blue   { background: var(--blue-light);   color: var(--blue); }
+.b-green  { background: var(--green-light);  color: var(--green); }
+.b-amber  { background: var(--amber-light);  color: var(--amber); }
+.b-red    { background: var(--red-light);    color: var(--red); }
+.b-gray   { background: var(--gray-100);     color: var(--gray-600); }
+.b-purple { background: var(--purple-light); color: var(--purple); }
 
 /* ── PREVIEW BOX ── */
-.preview-box { display: none; margin-top: 14px; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px; }
-.preview-title { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
-.preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.preview-row { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100); }
+.preview-box { display: none; margin-top: 12px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 12px; }
+.preview-title { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+.preview-row { display: flex; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--gray-100); }
 .preview-row:last-child { border: none; }
-.preview-label { min-width: 140px; font-size: 11px; color: var(--gray-400); flex-shrink: 0; }
-.preview-val { flex: 1; font-size: 12px; font-weight: 600; color: var(--gray-800); word-break: break-word; }
+.preview-label { min-width: 140px; font-size: 12px; color: var(--gray-400); }
+.preview-val { flex: 1; font-size: 12px; font-weight: 600; word-break: break-all; }
 .error-box { display: none; margin-top: 10px; background: var(--red-light); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--red); font-weight: 600; }
 
 /* ── SEARCH ── */
-.search-input { width: 100%; padding: 8px 14px 8px 36px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 13px; font-family: var(--font-body); outline: none; background: var(--gray-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E") no-repeat 12px center; }
+.search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 13px; font-family: var(--font-body); outline: none; background: var(--gray-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E") no-repeat 11px center; }
 .search-input:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); background-color: white; }
 
 /* ── EMPTY ── */
 .empty { text-align: center; padding: 40px 20px; color: var(--gray-400); }
-.empty .icon { font-size: 32px; margin-bottom: 8px; }
+.empty .icon { font-size: 36px; margin-bottom: 8px; }
 .empty p { font-size: 13px; }
 
 /* ── TOAST ── */
-#toast { position: fixed; bottom: 24px; right: 24px; padding: 11px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; color: white; z-index: 9999; display: none; box-shadow: var(--shadow-lg); max-width: 340px; }
+#toast { position: fixed; bottom: 20px; right: 20px; padding: 11px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; color: white; z-index: 9999; display: none; box-shadow: var(--shadow-lg); max-width: 320px; }
 
-/* ── LOADING ── */
-.loading-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue-mid), #60a5fa); z-index: 9999; display: none; animation: loading-slide 1.2s ease-in-out infinite; }
-@keyframes loading-slide { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+/* ── LOADING SPINNER ── */
+.spinner-sm { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── SECTION DIVIDER ── */
-.section-title { font-family: var(--font-head); font-size: 12px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
-.section-title::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+/* ── OVERLAY ── */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 90; }
+.overlay.show { display: block; }
 
-/* ── FILTER ROW ── */
-.filter-row { display: flex; gap: 8px; align-items: center; padding: 10px 14px; background: var(--gray-50); border-bottom: 1px solid var(--gray-100); flex-wrap: wrap; }
-.filter-row input, .filter-row select {
-  padding: 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 7px;
-  font-size: 12px; font-family: var(--font-body); outline: none; background: white;
-}
-.filter-row input:focus, .filter-row select:focus { border-color: var(--blue-mid); }
-
-/* ── FAKTUR BREAKDOWN ── */
-.faktur-breakdown {
-  display: inline-flex; gap: 0; border: 1px solid var(--gray-200); border-radius: 7px; overflow: hidden; font-size: 11px; font-family: monospace; margin-top: 4px;
-}
-.fb-part { padding: 3px 7px; font-weight: 600; }
-.fb-cabang { background: #e0e7ff; color: #3730a3; }
-.fb-tanggal { background: #d1fae5; color: #065f46; }
-.fb-urut { background: #fef3c7; color: #92400e; }
-
-/* ── COLS INDICATOR ── */
-.col-indicator { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px; background: var(--navy); color: rgba(255,255,255,0.7); border-radius: 4px; font-size: 9px; font-weight: 700; font-family: monospace; }
-
-/* ── URL CONFIG ── */
-.url-config-banner {
-  background: linear-gradient(135deg, #fef3c7, #fffbeb); border: 1px solid #fcd34d;
-  border-radius: var(--radius-lg); padding: 14px 18px; margin-bottom: 18px;
-  display: flex; align-items: center; gap: 12px;
-}
-.url-config-banner.connected { background: linear-gradient(135deg, #d1fae5, #f0fdf4); border-color: #6ee7b7; }
+/* ── PROGRESS BAR ── */
+.loading-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--blue-mid); z-index: 9999; transition: width 0.3s; width: 0%; }
+.loading-bar.active { width: 70%; }
+.loading-bar.done   { width: 100%; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .stats-row { grid-template-columns: 1fr 1fr; }
-  .url-input { width: 180px; }
-}
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); transition: transform 0.25s; }
   .sidebar.open { transform: translateX(0); }
@@ -299,59 +201,47 @@ tr:hover td { background: #f8faff; }
   .hamburger { display: block; }
   .content { padding: 14px; }
   .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .form-grid, .form-grid-3 { grid-template-columns: 1fr; }
-  .url-field { display: none; }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 90; }
-  .overlay.show { display: block; }
+  .form-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
+<!-- PROGRESS BAR -->
 <div class="loading-bar" id="loading-bar"></div>
 
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-logo">
-      <div class="brand-icon">🏦</div>
-      <div class="brand-text-wrap">
-        <div class="brand-title">Sistem Data<br>Gadai PGI</div>
-        <div class="brand-sub">Pusat Gadai Indonesia</div>
-      </div>
-    </div>
-    <div class="brand-cabang">
-      <div class="cabang-label">Cabang Aktif</div>
-      <div class="cabang-name" id="sb-cabang-nama">—</div>
-      <div class="cabang-code" id="sb-cabang-code">Belum terhubung</div>
-    </div>
+    <div class="brand-badge"><span id="badge-cabang-name">PGI</span></div>
+    <div class="brand-title">Input Data Gadai</div>
+    <div class="brand-sub">Pusat Gadai Indonesia</div>
   </div>
+
+  <div class="cabang-selector">
+    <label>Pilih Cabang</label>
+    <select id="select-cabang" onchange="gantCabang(this.value)">
+      <option value="CMS006">CMS006 — Cipaku</option>
+      <option value="BDG026">BDG026 — Bandung</option>
+    </select>
+  </div>
+
   <div class="sidebar-date" id="sidebar-date"></div>
 
   <div class="nav">
-    <div class="nav-section">Input Data</div>
-    <div class="nav-item active" onclick="goTo('gadai',this)">
-      <span class="ni">📋</span> Data Gadai Aktif
-      <span class="nav-badge" id="badge-gadai" style="display:none">0</span>
-    </div>
-    <div class="nav-item" onclick="goTo('nasabah',this)">
-      <span class="ni">👥</span> Data Nasabah
-    </div>
-    <div class="nav-section">Pengaturan</div>
-    <div class="nav-item" onclick="goTo('config',this)">
-      <span class="ni">⚙️</span> Konfigurasi
+    <div class="nav-section">Menu</div>
+    <div class="nav-item active" onclick="goTo('gadai',this)"><span class="ni">📋</span> Input Data Gadai</div>
+    <div class="nav-item" onclick="goTo('nasabah',this)"><span class="ni">👥</span> Data Nasabah</div>
+  </div>
+
+  <div class="sync-bar">
+    <div class="sync-indicator">
+      <div class="sync-dot" id="sync-dot"></div>
+      <div class="sync-text" id="sync-text">Menghubungkan...</div>
     </div>
   </div>
 
-  <div class="sidebar-tools">
-    <button class="tool-btn tool-btn-primary" onclick="syncKeSheets()">📊 Sync ke Google Sheets</button>
-    <div class="sync-status" id="sync-status">Belum terhubung</div>
-    <button class="tool-btn tool-btn-secondary" onclick="backupData()">💾 Backup Lokal</button>
-    <button class="tool-btn tool-btn-secondary" onclick="document.getElementById('restore-input').click()">📂 Restore Backup</button>
-    <input type="file" id="restore-input" accept=".json" style="display:none" onchange="restoreData(event)">
-    <button class="tool-btn tool-btn-danger" onclick="resetSemua()">🗑️ Reset Semua Data</button>
-  </div>
-  <div class="sidebar-version">v3.0 · PGI Data Entry System</div>
+  <div class="sidebar-version">v3.0 · Auto-sync aktif</div>
 </nav>
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
@@ -360,302 +250,180 @@ tr:hover td { background: #f8faff; }
   <div class="topbar">
     <div class="topbar-left">
       <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
-      <div class="page-title" id="page-title">Data Gadai Aktif</div>
+      <div class="page-title" id="page-title">Input Data Gadai</div>
     </div>
     <div class="topbar-right">
-      <div class="url-field">
-        <span class="url-label">Apps Script URL:</span>
-        <input type="text" class="url-input" id="sheets-url-input" placeholder="https://script.google.com/macros/s/..." oninput="saveUrl()">
-      </div>
-      <span id="conn-badge" class="badge b-gray" style="white-space:nowrap">⚫ Tidak Terhubung</span>
+      <div class="cabang-pill">📍 <span id="topbar-cabang">CMS006</span></div>
     </div>
   </div>
 
   <div class="content">
 
-    <!-- ══ HALAMAN: DATA GADAI AKTIF ══ -->
+    <!-- ══ INPUT DATA GADAI ══ -->
     <div id="page-gadai" class="page active">
+
       <div class="stats-row">
-        <div class="stat-card"><div class="stat-label">Total Entri</div><div class="stat-value" id="sg-total">0</div><div class="stat-sub">data gadai</div></div>
-        <div class="stat-card green"><div class="stat-label">Hari Ini</div><div class="stat-value" id="sg-hari">0</div><div class="stat-sub">entri baru</div></div>
-        <div class="stat-card amber"><div class="stat-label">Status Berjalan</div><div class="stat-value" id="sg-aktif">0</div><div class="stat-sub">transaksi</div></div>
-        <div class="stat-card gold"><div class="stat-label">Nasabah Baru</div><div class="stat-value" id="sg-baru">0</div><div class="stat-sub">vs lama</div></div>
+        <div class="stat-card"><div class="stat-label">Total Gadai</div><div class="stat-value" id="s-total">—</div><div class="stat-sub">terdaftar</div></div>
+        <div class="stat-card green"><div class="stat-label">Bulan Ini</div><div class="stat-value" id="s-bulan">—</div><div class="stat-sub">gadai baru</div></div>
+        <div class="stat-card amber"><div class="stat-label">Total Nasabah</div><div class="stat-value" id="s-nasabah">—</div><div class="stat-sub">unik terdaftar</div></div>
+        <div class="stat-card"><div class="stat-label">Total Pinjaman</div><div class="stat-value" style="font-size:18px" id="s-nominal">—</div><div class="stat-sub">bulan ini</div></div>
       </div>
 
-      <!-- Import Box -->
+      <!-- Import Pugindo -->
       <div class="import-box">
         <div class="import-title">⚡ Import dari Pugindo — Detail Gadai</div>
         <div class="import-steps">
           1. Buka halaman <b>Detail Gadai</b> di pugindo.com<br>
-          2. Tekan <code>Ctrl+A</code> → <code>Ctrl+C</code> (pilih semua → salin)<br>
-          3. Paste di kotak bawah → klik <b>Baca Data</b>
+          2. Tekan <b>Ctrl+A</b> lalu <b>Ctrl+C</b><br>
+          3. Paste di bawah → klik <b>Baca & Simpan</b>
         </div>
         <div class="form-group" style="margin-bottom:10px">
-          <textarea id="pg-paste" placeholder="Paste teks dari halaman Detail Gadai pugindo di sini..."></textarea>
+          <textarea id="pg-paste" placeholder="Paste seluruh teks halaman Detail Gadai dari pugindo..."></textarea>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="btn btn-primary" onclick="bacaPugindo()">⚡ Baca Data</button>
-          <button class="btn btn-outline" onclick="clearPgPaste()">✕ Bersihkan</button>
+          <button class="btn btn-primary" id="btn-baca" onclick="bacaDanSimpan()">⚡ Baca &amp; Simpan</button>
+          <button class="btn btn-outline" onclick="clearPaste()">✕ Bersihkan</button>
         </div>
         <div class="preview-box" id="pg-preview">
-          <div class="preview-title">✅ Data Terbaca — Periksa sebelum simpan</div>
+          <div class="preview-title">✅ Data Terbaca — Siap Disimpan</div>
           <div id="pg-preview-rows"></div>
-          <div style="display:flex;gap:8px;margin-top:14px">
-            <button class="btn btn-primary" onclick="simpanDariPugindo()">💾 Simpan ke Sheet 1 & 2</button>
-            <button class="btn btn-outline" onclick="clearPgPaste()">✕ Batal</button>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-primary" id="btn-simpan" onclick="konfirmasiSimpan()">💾 Konfirmasi Simpan</button>
+            <button class="btn btn-outline" onclick="clearPaste()">✕ Batal</button>
           </div>
         </div>
         <div class="error-box" id="pg-error"></div>
       </div>
 
-      <!-- Tabel Data Gadai -->
+      <!-- Tabel Data Gadai Aktif -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title">📋 Rekap Data Gadai Aktif <span class="badge b-navy" style="margin-left:4px" id="gadai-count">0</span></div>
-          <div style="display:flex;gap:6px;align-items:center">
-            <button class="btn btn-outline btn-sm" onclick="exportExcel('gadai')">📥 Export</button>
+          <div class="card-title">📋 Data Gadai Aktif <span id="cabang-label-gadai" class="badge b-blue" style="font-size:11px"></span></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="month" id="filter-bulan" onchange="renderGadai()" style="padding:6px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:12px;font-family:var(--font-body)">
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('filter-bulan').value='';renderGadai()">Semua</button>
           </div>
         </div>
-        <div class="filter-row">
-          <input type="text" id="search-gadai" placeholder="Cari nama, no. faktur, no. anggota, IMEI..." oninput="renderGadai()" style="min-width:220px">
-          <input type="date" id="filter-gadai-tgl" onchange="renderGadai()">
-          <button class="btn btn-outline btn-sm" onclick="document.getElementById('filter-gadai-tgl').value='';renderGadai()">Semua</button>
-          <select id="filter-gadai-status" onchange="renderGadai()" style="font-size:12px">
-            <option value="">Semua Status</option>
-            <option value="Berjalan">Berjalan</option>
-            <option value="Lunas">Lunas</option>
-            <option value="Lelang">Lelang</option>
-          </select>
-        </div>
         <div class="card-body-tight">
-          <div class="tbl-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th><span class="col-indicator">A</span> Tanggal</th>
-                  <th><span class="col-indicator">B</span> No. Faktur</th>
-                  <th><span class="col-indicator">C</span> No. Anggota</th>
-                  <th><span class="col-indicator">D</span> No. Identitas</th>
-                  <th><span class="col-indicator">E</span> Nama</th>
-                  <th><span class="col-indicator">F</span> No. HP</th>
-                  <th><span class="col-indicator">G</span> Jenis Barang</th>
-                  <th><span class="col-indicator">H</span> Merk</th>
-                  <th><span class="col-indicator">I</span> Tipe</th>
-                  <th><span class="col-indicator">J</span> IMEI/SN</th>
-                  <th><span class="col-indicator">K</span> Pinjaman</th>
-                  <th><span class="col-indicator">L</span> Alamat</th>
-                  <th><span class="col-indicator">O</span> Status</th>
-                  <th><span class="col-indicator">P</span> Asal Cabang</th>
-                  <th>Hapus</th>
-                </tr>
-              </thead>
-              <tbody id="gadai-table"></tbody>
-            </table>
+          <div style="padding:12px 12px 0">
+            <input class="search-input" id="search-gadai" placeholder="Cari nama, no. faktur, no. anggota, IMEI..." oninput="renderGadai()">
+          </div>
+          <div class="tbl-wrap" id="tbl-gadai-wrap">
+            <div class="empty"><div class="icon">⏳</div><p>Memuat data...</p></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ HALAMAN: DATA NASABAH ══ -->
+    <!-- ══ DATA NASABAH ══ -->
     <div id="page-nasabah" class="page">
       <div class="stats-row">
-        <div class="stat-card"><div class="stat-label">Total Nasabah</div><div class="stat-value" id="sn-total">0</div><div class="stat-sub">terdaftar</div></div>
-        <div class="stat-card green"><div class="stat-label">Nasabah Baru</div><div class="stat-value" id="sn-baru">0</div><div class="stat-sub">bulan ini</div></div>
-        <div class="stat-card amber"><div class="stat-label">Nasabah Lama</div><div class="stat-value" id="sn-lama">0</div><div class="stat-sub">bulan ini</div></div>
-        <div class="stat-card"><div class="stat-label">Tanpa No. HP</div><div class="stat-value" id="sn-nohp">0</div><div class="stat-sub">perlu dilengkapi</div></div>
+        <div class="stat-card"><div class="stat-label">Total Nasabah</div><div class="stat-value" id="sn-total">—</div><div class="stat-sub">terdaftar</div></div>
+        <div class="stat-card green"><div class="stat-label">Aktif Gadai</div><div class="stat-value" id="sn-aktif">—</div><div class="stat-sub">masih berjalan</div></div>
+        <div class="stat-card amber"><div class="stat-label">Cabang</div><div class="stat-value" style="font-size:18px" id="sn-cabang">—</div><div class="stat-sub">aktif</div></div>
+        <div class="stat-card"><div class="stat-label">Baru Bulan Ini</div><div class="stat-value" id="sn-baru">—</div><div class="stat-sub">nasabah</div></div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <div class="card-title">👥 Data Nasabah <span class="badge b-navy" style="margin-left:4px" id="nasabah-count">0</span></div>
-          <button class="btn btn-outline btn-sm" onclick="exportExcel('nasabah')">📥 Export</button>
-        </div>
-        <div class="filter-row">
-          <input type="text" id="search-nasabah" placeholder="Cari nama, no. anggota, alamat..." oninput="renderNasabah()" style="min-width:220px">
-          <select id="filter-nasabah-status" onchange="renderNasabah()">
-            <option value="">Semua Status</option>
-            <option value="Baru">Nasabah Baru</option>
-            <option value="Lama">Nasabah Lama</option>
-          </select>
+          <div class="card-title">👥 Data Nasabah <span id="cabang-label-nasabah" class="badge b-blue" style="font-size:11px"></span></div>
+          <div style="font-size:12px;color:var(--gray-400)" id="nasabah-count">—</div>
         </div>
         <div class="card-body-tight">
-          <div class="tbl-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th><span class="col-indicator">A</span> No. Anggota</th>
-                  <th><span class="col-indicator">B</span> Nama</th>
-                  <th><span class="col-indicator">C</span> No. HP</th>
-                  <th><span class="col-indicator">D</span> Alamat</th>
-                  <th><span class="col-indicator">E</span> Kelurahan</th>
-                  <th><span class="col-indicator">F</span> Kecamatan</th>
-                  <th><span class="col-indicator">G</span> Status Nasabah</th>
-                  <th>Hapus</th>
-                </tr>
-              </thead>
-              <tbody id="nasabah-table"></tbody>
-            </table>
+          <div style="padding:12px 12px 0">
+            <input class="search-input" id="search-nasabah" placeholder="Cari nama, no. anggota, alamat..." oninput="renderNasabah()">
+          </div>
+          <div class="tbl-wrap" id="tbl-nasabah-wrap">
+            <div class="empty"><div class="icon">⏳</div><p>Memuat data...</p></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ HALAMAN: KONFIGURASI ══ -->
-    <div id="page-config" class="page">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">⚙️ Konfigurasi Google Sheets</div>
-        </div>
-        <div class="card-body">
-          <div class="form-group" style="margin-bottom:14px">
-            <label>Apps Script Web App URL</label>
-            <input type="text" id="config-url" placeholder="https://script.google.com/macros/s/..." oninput="saveUrlFromConfig()">
-            <div style="font-size:11px;color:var(--gray-400);margin-top:5px">Dapatkan URL dari: Google Sheets → Extensions → Apps Script → Deploy → Manage Deployments</div>
-          </div>
-          <button class="btn btn-primary" onclick="testKoneksi()">🔌 Test Koneksi</button>
-          <div id="test-result" style="margin-top:12px;font-size:12px"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">🏢 Master Cabang (dari Sheet)</div>
-        </div>
-        <div class="card-body-tight">
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr><th>Kode Cabang</th><th>Nama Cabang</th><th>Kota/Kab</th></tr></thead>
-              <tbody id="master-cabang-table"><tr><td colspan="3"><div class="empty"><div class="icon">🔌</div><p>Hubungkan ke Sheets untuk melihat master cabang</p></div></td></tr></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+</div>
 
 <div id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// CONSTANTS & STATE
-// ═══════════════════════════════════════════════════════
-let SHEETS_URL = localStorage.getItem('pgi_sheets_url') || '';
-let dataGadai   = JSON.parse(localStorage.getItem('pgi_gadai')   || '[]');
-let dataNasabah = JSON.parse(localStorage.getItem('pgi_nasabah') || '[]');
-let masterCabang = JSON.parse(localStorage.getItem('pgi_master_cabang') || '[]'); // [{kode, nama, kota}]
-let pgParsed = null;
-let isSyncing = false;
-
-// ═══════════════════════════════════════════════════════
-// SAVE & STORAGE
-// ═══════════════════════════════════════════════════════
-function save() {
-  localStorage.setItem('pgi_gadai',   JSON.stringify(dataGadai));
-  localStorage.setItem('pgi_nasabah', JSON.stringify(dataNasabah));
-  setSyncStatus('unsaved');
-}
-
-function saveUrl() {
-  SHEETS_URL = document.getElementById('sheets-url-input').value.trim();
-  localStorage.setItem('pgi_sheets_url', SHEETS_URL);
-  syncUrlFields();
-}
-function saveUrlFromConfig() {
-  SHEETS_URL = document.getElementById('config-url').value.trim();
-  localStorage.setItem('pgi_sheets_url', SHEETS_URL);
-  syncUrlFields();
-}
-function syncUrlFields() {
-  const u = SHEETS_URL;
-  const t = document.getElementById('sheets-url-input');
-  const c = document.getElementById('config-url');
-  if (t && t.value !== u) t.value = u;
-  if (c && c.value !== u) c.value = u;
-  const urlInput = document.getElementById('sheets-url-input');
-  if (urlInput) {
-    urlInput.classList.toggle('connected', !!u);
+// ── CONFIG CABANG ────────────────────────────────────────────────────────────
+const CABANG_CONFIG = {
+  'CMS006': {
+    label: 'CMS006 · Cipaku',
+    url: 'https://script.google.com/macros/s/AKfycbzr7BP_BiA-IRbACuiMWr-NRby9l7PcCcShG6sh6NWLPXKTcaqdVIwVDEKWKekKEqN1JA/exec'
+  },
+  'BDG026': {
+    label: 'BDG026 · Bandung',
+    url: '' // akan diisi nanti
   }
-}
+};
 
-// ═══════════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════════
+// ── STATE ────────────────────────────────────────────────────────────────────
+let aktivCabang = localStorage.getItem('pgi_cabang') || 'CMS006';
+let dataGadai   = []; // dari sheet "DATA GADAI AKTIP"
+let dataNasabah = []; // dari sheet "DATA NASABAH"
+let dataCabang  = []; // dari sheet "MASTER CABANG"
+let parsedData  = null;
+let isLoading   = false;
+
+function sheetsUrl() { return CABANG_CONFIG[aktivCabang]?.url || ''; }
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 function el(id) { return document.getElementById(id); }
-
 function fmtTgl(ds) {
   if (!ds) return '-';
-  const d = new Date(ds + (ds.length === 10 ? 'T00:00:00' : ''));
+  const d = new Date(ds);
   if (isNaN(d)) return String(ds);
   return d.toLocaleDateString('id-ID', { day:'2-digit', month:'2-digit', year:'numeric' });
 }
+function fmtTglPendek(ds) {
+  if (!ds) return '-';
+  const d = new Date(ds);
+  if (isNaN(d)) return '-';
+  return d.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+}
 function todayStr() { return new Date().toISOString().split('T')[0]; }
-function moneyFmt(v) { return 'Rp ' + Number(v||0).toLocaleString('id-ID'); }
+function moneyFmt(v) {
+  const n = Number(String(v||'').replace(/[^\d]/g,''));
+  if (!n) return '-';
+  return 'Rp ' + n.toLocaleString('id-ID');
+}
 
-// Parse tanggal Indo → ISO
+// Bersihkan angka nol di depan nomor hp & no anggota saat tampil
+// (tapi simpan aslinya ke sheet)
+function bersihNol(v) {
+  return String(v||'').replace(/^0+/, '');
+}
+
+// Extract tanggal dari no faktur: format 14 digit, misal 11484260626013
+// digit 6-11 (index 5..10) = YYMMDD
+function tglDariFaktur(faktur) {
+  const s = String(faktur||'').replace(/\D/g,'');
+  if (s.length < 11) return '';
+  const yy = s.slice(5,7);
+  const mm = s.slice(7,9);
+  const dd = s.slice(9,11);
+  const yyyy = '20' + yy;
+  const iso = `${yyyy}-${mm}-${dd}`;
+  if (isNaN(new Date(iso))) return '';
+  return iso;
+}
+
 function parseTglIndo(str) {
   if (!str) return '';
-  const bln = {januari:'01',februari:'02',maret:'03',april:'04',mei:'05',juni:'06',
-               juli:'07',agustus:'08',september:'09',oktober:'10',november:'11',desember:'12'};
+  const bln = {januari:'01',februari:'02',maret:'03',april:'04',mei:'05',juni:'06',juli:'07',agustus:'08',september:'09',oktober:'10',november:'11',desember:'12'};
   const m = str.match(/(\d{1,2})\s+(\w+)\s+(\d{4})/i);
   if (m) { const b = bln[m[2].toLowerCase()]; if (b) return `${m[3]}-${b}-${m[1].padStart(2,'0')}`; }
   if (/^\d{4}-\d{2}-\d{2}$/.test(str.trim())) return str.trim();
   return '';
 }
 
-// Extract tanggal dari No. Faktur: format 1KODE + YYMMDD + urut
-// Contoh: 11484260626013 → kode=1484 tgl=2026-06-26
-function tanggalDariFaktur(noFaktur) {
-  if (!noFaktur) return '';
-  const s = String(noFaktur).replace(/\D/g,'');
-  // Format: 1 + 4digit_kode + 6digit_tanggal + urut
-  if (s.length >= 12) {
-    // coba ambil digit ke-5 s.d. 10 sebagai YYMMDD
-    const yymmdd = s.slice(5, 11);
-    if (/^\d{6}$/.test(yymmdd)) {
-      const yy = yymmdd.slice(0,2);
-      const mm = yymmdd.slice(2,4);
-      const dd = yymmdd.slice(4,6);
-      const yyyy = '20' + yy;
-      if (parseInt(mm) >= 1 && parseInt(mm) <= 12 && parseInt(dd) >= 1 && parseInt(dd) <= 31) {
-        return `${yyyy}-${mm}-${dd}`;
-      }
-    }
-  }
-  return '';
-}
-
-// Ambil kode cabang dari No. Faktur (5 digit pertama setelah angka 1 terdepan)
-// 11484260626013 → "1484"
-function kodeCabangDariFaktur(noFaktur) {
-  if (!noFaktur) return '';
-  const s = String(noFaktur).replace(/\D/g,'');
-  if (s.length >= 5) return s.slice(1, 5); // skip digit '1' terdepan
-  return '';
-}
-
-// Lookup nama cabang dari masterCabang
-function namaAsalCabang(noFaktur) {
-  const kode = kodeCabangDariFaktur(noFaktur);
-  if (!kode || !masterCabang.length) return '';
-  const found = masterCabang.find(c => String(c.kode) === kode || String(c.kode).replace(/^0+/,'') === kode.replace(/^0+/,''));
-  return found ? found.nama : '';
-}
-
-// No. Urut gadai dari faktur (3 digit terakhir)
-function nomorUrut(noFaktur) {
-  const s = String(noFaktur||'').replace(/\D/g,'');
-  return s.length >= 3 ? s.slice(-3) : '';
-}
-
-// Ambil field dari teks paste (line-based)
 function ambilField(teks, ...labels) {
   for (const label of labels) {
     const re1 = new RegExp(label + '\\s*\\n+\\s*([^\\n]+)', 'i');
     const m1  = teks.match(re1);
     if (m1) { const v = m1[1].trim(); if (v && v !== '-') return v; }
-    const re2 = new RegExp(label + '[\\t:：]+([^\\n]+)', 'i');
+    const re2 = new RegExp(label + '[\\t ]+([^\\n]+)', 'i');
     const m2  = teks.match(re2);
     if (m2) { const v = m2[1].trim(); if (v && v !== '-') return v; }
   }
@@ -669,598 +437,34 @@ function ambilImei(teks) {
   return '';
 }
 
-function bersihkanNominal(str) { return parseInt(String(str||'').replace(/[^\d]/g,'')) || 0; }
-
-// Status nasabah: Baru = no anggota bulan & tahun sama dengan bulan tahun gadai hari ini
-// Disederhanakan: jika no_anggota tidak ada di dataNasabah sebelum entri ini → Baru
-function statusNasabah(noAnggota) {
-  if (!noAnggota) return 'Lama';
-  const existing = dataNasabah.find(n => n.no_anggota === noAnggota);
-  return existing ? 'Lama' : 'Baru';
+function bersihkanNominal(str) {
+  return parseInt(String(str||'').replace(/[^\d]/g,'')) || 0;
 }
 
-// ═══════════════════════════════════════════════════════
-// PARSER PUGINDO
-// ═══════════════════════════════════════════════════════
-function bacaPugindo() {
-  const raw   = el('pg-paste').value;
-  const errEl = el('pg-error');
-  const prvEl = el('pg-preview');
-  errEl.style.display = 'none';
-  prvEl.style.display = 'none';
-  pgParsed = null;
-
-  if (!raw.trim()) {
-    errEl.textContent = '⚠️ Kotak paste masih kosong. Salin seluruh halaman detail gadai (Ctrl+A → Ctrl+C).';
-    errEl.style.display = 'block'; return;
-  }
-
-  // Parse semua field
-  const noFaktur    = ambilField(raw, 'No\\.\\s*Faktur', 'No Faktur');
-  const statusGadai = ambilField(raw, 'Status Gadai');
-  const noAnggota   = ambilField(raw, 'No\\.\\s*Anggota', 'No Anggota');
-  const noIdentitas = ambilField(raw, 'No\\.\\s*Identitas', 'No Identitas', 'NIK');
-  const nama        = ambilField(raw, 'Nama');
-  const alamat      = ambilField(raw, 'Alamat');
-  const kelurahan   = ambilField(raw, 'Kelurahan', 'Kel\\.');
-  const kecamatan   = ambilField(raw, 'Kecamatan', 'Kec\\.');
-  const noHp        = ambilField(raw, 'No\\.\\s*Handphone', 'No Handphone', 'No\\.\\s*HP', 'No HP', 'Handphone');
-  const jenisBrg    = ambilField(raw, 'Jenis Barang');
-  const merkBrg     = ambilField(raw, 'Merk Barang', 'Merk');
-  const tipeBrg     = ambilField(raw, 'Tipe Barang', 'Tipe');
-  const imei        = ambilImei(raw);
-  const pinjamanMax = ambilField(raw, 'Pinjaman Maksimum');
-  const nominal     = bersihkanNominal(pinjamanMax);
-  const tglGadaiRaw = ambilField(raw, 'Tanggal Gadai');
-
-  if (!noFaktur && !nama) {
-    errEl.textContent = '❌ Data tidak terbaca. Pastikan copy seluruh halaman detail gadai (Ctrl+A → Ctrl+C).';
-    errEl.style.display = 'block'; return;
-  }
-
-  // Tanggal dari No. Faktur (lebih reliable)
-  const tglDariFaktur = noFaktur ? tanggalDariFaktur(noFaktur) : '';
-  const tglGadaiISO   = tglDariFaktur || parseTglIndo(tglGadaiRaw);
-  const kode          = kodeCabangDariFaktur(noFaktur);
-  const asalCabang    = namaAsalCabang(noFaktur);
-  const urut          = nomorUrut(noFaktur);
-
-  pgParsed = {
-    tanggal:      tglGadaiISO,
-    no_faktur:    noFaktur,
-    no_anggota:   noAnggota,
-    no_identitas: noIdentitas,
-    nama,
-    no_hp:        noHp,
-    jenis_barang: jenisBrg,
-    merk_barang:  merkBrg,
-    type_barang:  tipeBrg,
-    imei,
-    pinjaman:     nominal,
-    alamat,
-    kelurahan,
-    kecamatan,
-    status_gadai: statusGadai,
-    asal_cabang:  asalCabang,
-    kode_cabang:  kode,
-    tgl_input:    new Date().toISOString(),
-  };
-
-  // Build preview
-  const rows = [
-    { col:'A', label:'Tanggal', val: tglGadaiISO ? fmtTgl(tglGadaiISO) + (tglGadaiRaw ? ' (dari faktur)' : '') : '⚠️ '+tglGadaiRaw, ok: !!tglGadaiISO },
-    { col:'B', label:'No. Faktur', val: noFaktur||'⚠️ kosong', ok: !!noFaktur },
-    { col:'C', label:'No. Anggota', val: noAnggota||'—', ok: true },
-    { col:'D', label:'No. Identitas', val: noIdentitas||'—', ok: true },
-    { col:'E', label:'Nama', val: nama||'⚠️ kosong', ok: !!nama },
-    { col:'F', label:'No. HP', val: noHp||'⚠️ kosong', ok: !!noHp },
-    { col:'G', label:'Jenis Barang', val: jenisBrg||'—', ok: true },
-    { col:'H', label:'Merk Barang', val: merkBrg||'—', ok: true },
-    { col:'I', label:'Tipe Barang', val: tipeBrg||'—', ok: true },
-    { col:'J', label:'IMEI / SN', val: imei||'—', ok: true },
-    { col:'K', label:'Pinjaman Maksimum', val: nominal ? moneyFmt(nominal) : '⚠️ kosong', ok: !!nominal },
-    { col:'L', label:'Alamat', val: alamat||'—', ok: true },
-    { col:'O', label:'Status Gadai', val: statusGadai||'—', ok: true },
-    { col:'P', label:'Asal Cabang', val: asalCabang || (kode ? `Kode: ${kode} (cabang tidak ditemukan di master)` : '—'), ok: true },
-  ];
-
-  // Faktur breakdown visual
-  let fakturHTML = '';
-  if (noFaktur) {
-    const s = String(noFaktur).replace(/\D/g,'');
-    const bagKode = s.slice(0, 5);
-    const bagTgl  = s.slice(5, 11);
-    const bagUrut = s.slice(11);
-    fakturHTML = `<div class="faktur-breakdown" style="margin-top:4px">
-      <span class="fb-part fb-cabang" title="Kode cabang">${bagKode}</span>
-      <span class="fb-part fb-tanggal" title="Tanggal YYMMDD">${bagTgl}</span>
-      <span class="fb-part fb-urut" title="No urut">${bagUrut}</span>
-    </div>`;
-  }
-
-  el('pg-preview-rows').innerHTML = `
-    ${fakturHTML ? `<div style="padding:8px 0 12px;border-bottom:1px solid var(--gray-100);margin-bottom:8px">
-      <div style="font-size:10px;color:var(--gray-400);margin-bottom:4px">DEKODE NO. FAKTUR</div>
-      ${fakturHTML}
-      <div style="display:flex;gap:12px;margin-top:6px;font-size:10px;color:var(--gray-400)">
-        <span><span style="display:inline-block;width:8px;height:8px;background:#e0e7ff;border-radius:2px"></span> Kode Cabang: <b>${kode}</b></span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:#d1fae5;border-radius:2px"></span> Tgl: <b>${fmtTgl(tglGadaiISO)}</b></span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:#fef3c7;border-radius:2px"></span> No Urut: <b>${urut}</b></span>
-      </div>
-    </div>` : ''}
-    ${rows.map(r => `
-      <div class="preview-row">
-        <span class="col-indicator" style="margin-right:6px;align-self:center">${r.col}</span>
-        <span class="preview-label">${r.label}</span>
-        <span class="preview-val">${r.val}</span>
-        <span>${r.ok ? '✅' : '⚠️'}</span>
-      </div>
-    `).join('')}
-  `;
-  prvEl.style.display = 'block';
-}
-
-function simpanDariPugindo() {
-  if (!pgParsed) return;
-
-  // Cek duplikat No. Faktur di dataGadai
-  if (pgParsed.no_faktur) {
-    const dup = dataGadai.find(d => d.no_faktur === pgParsed.no_faktur);
-    if (dup) { toast(`⚠️ No. Faktur ${pgParsed.no_faktur} sudah ada!`, 'err'); return; }
-  }
-
-  // Simpan ke dataGadai (Sheet 1)
-  dataGadai.push({ ...pgParsed });
-
-  // Upsert ke dataNasabah (Sheet 2) berdasarkan no_anggota
-  if (pgParsed.no_anggota) {
-    const idxNasabah = dataNasabah.findIndex(n => n.no_anggota === pgParsed.no_anggota);
-    const statusNas  = idxNasabah === -1 ? 'Baru' : 'Lama';
-    const objNasabah = {
-      no_anggota:      pgParsed.no_anggota,
-      nama:            pgParsed.nama,
-      no_hp:           pgParsed.no_hp,
-      alamat:          pgParsed.alamat,
-      kelurahan:       pgParsed.kelurahan,
-      kecamatan:       pgParsed.kecamatan,
-      status_nasabah:  statusNas,
-      tgl_update:      new Date().toISOString(),
-    };
-    if (idxNasabah === -1) dataNasabah.push(objNasabah);
-    else dataNasabah[idxNasabah] = { ...dataNasabah[idxNasabah], ...objNasabah };
-  }
-
-  save(); render();
-  toast(`✅ Data ${pgParsed.nama||pgParsed.no_faktur} berhasil disimpan ke Sheet 1 & 2!`);
-  clearPgPaste();
-}
-
-function clearPgPaste() {
-  el('pg-paste').value = '';
-  el('pg-preview').style.display = 'none';
-  el('pg-error').style.display = 'none';
-  pgParsed = null;
-}
-
-// ═══════════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════════
-function render() { renderGadai(); renderNasabah(); updateStats(); }
-
-function updateStats() {
-  const todayS = todayStr();
-  const gadaiHari  = dataGadai.filter(d => d.tanggal === todayS);
-  const gadaiBerjalan = dataGadai.filter(d => d.status_gadai === 'Berjalan');
-  const gadaiBaru = dataGadai.filter(d => {
-    // Baru = nasabah tidak ada di master nasabah SEBELUM entri ini
-    // Approximation: no_anggota muncul pertama kali di dataNasabah as Baru
-    const n = dataNasabah.find(x => x.no_anggota === d.no_anggota);
-    return n && n.status_nasabah === 'Baru';
+// Asal cabang dari MASTER CABANG berdasarkan kode di no faktur
+function asalCabang(noFaktur) {
+  if (!dataCabang || !dataCabang.length) return '';
+  const kodeCabang = String(noFaktur||'').replace(/\D/g,'').slice(0,5);
+  const found = dataCabang.find(r => {
+    const kode = String(r['KODE']||r['kode']||r['Kode']||'').trim();
+    return kode === kodeCabang || String(r['NO']||r['no']||'').trim() === kodeCabang;
   });
-
-  el('sg-total').textContent  = dataGadai.length;
-  el('sg-hari').textContent   = gadaiHari.length;
-  el('sg-aktif').textContent  = gadaiBerjalan.length;
-  el('sg-baru').textContent   = gadaiBaru.length;
-  el('gadai-count').textContent = dataGadai.length;
-
-  const bulanIni = new Date().getMonth();
-  const thnIni   = new Date().getFullYear();
-  const nasabahBulanIni = dataNasabah.filter(n => {
-    const d = new Date(n.tgl_update || '');
-    return d.getMonth() === bulanIni && d.getFullYear() === thnIni;
-  });
-  el('sn-total').textContent = dataNasabah.length;
-  el('sn-baru').textContent  = nasabahBulanIni.filter(n => n.status_nasabah === 'Baru').length;
-  el('sn-lama').textContent  = nasabahBulanIni.filter(n => n.status_nasabah === 'Lama').length;
-  el('sn-nohp').textContent  = dataNasabah.filter(n => !n.no_hp).length;
-  el('nasabah-count').textContent = dataNasabah.length;
+  if (!found) return '';
+  return String(found['NAMA CABANG']||found['nama_cabang']||found['Nama Cabang']||found['nama']||'').trim();
 }
 
-function renderGadai() {
-  const tbl = el('gadai-table'); if (!tbl) return;
-  const q       = (el('search-gadai')?.value || '').toLowerCase().trim();
-  const filterTgl = el('filter-gadai-tgl')?.value || '';
-  const filterSts = el('filter-gadai-status')?.value || '';
-
-  let filtered = dataGadai.filter(d => {
-    if (filterTgl && d.tanggal !== filterTgl) return false;
-    if (filterSts && d.status_gadai !== filterSts) return false;
-    if (!q) return true;
-    return [d.nama, d.no_faktur, d.no_anggota, d.imei, d.jenis_barang, d.merk_barang].some(v => String(v||'').toLowerCase().includes(q));
-  });
-
-  if (!filtered.length) {
-    tbl.innerHTML = `<tr><td colspan="15"><div class="empty"><div class="icon">📭</div><p>${q||filterTgl||filterSts ? 'Tidak ada data yang cocok' : 'Belum ada data gadai'}</p></div></td></tr>`;
-    return;
-  }
-
-  tbl.innerHTML = [...filtered].reverse().map(d => {
-    const i = dataGadai.indexOf(d);
-    const stsCls = d.status_gadai === 'Berjalan' ? 'b-green' : d.status_gadai === 'Lunas' ? 'b-blue' : 'b-amber';
-    return `<tr>
-      <td style="white-space:nowrap;font-size:12px">${fmtTgl(d.tanggal)}</td>
-      <td style="font-size:11px;font-weight:600;font-family:monospace;color:var(--navy)">${d.no_faktur||'-'}</td>
-      <td style="font-size:11px;color:var(--gray-600)">${d.no_anggota||'-'}</td>
-      <td style="font-size:11px;color:var(--gray-600)">${d.no_identitas||'-'}</td>
-      <td><div class="name-cell">${d.nama||'-'}</div></td>
-      <td style="font-size:12px">${d.no_hp||'-'}</td>
-      <td style="font-size:12px">${d.jenis_barang||'-'}</td>
-      <td style="font-size:12px">${d.merk_barang||'-'}</td>
-      <td style="font-size:11px;color:var(--gray-600)">${d.type_barang||'-'}</td>
-      <td style="font-size:11px;font-family:monospace;color:var(--gray-600)">${d.imei||'-'}</td>
-      <td style="font-weight:600;white-space:nowrap">${d.pinjaman ? moneyFmt(d.pinjaman) : '-'}</td>
-      <td style="font-size:11px;max-width:150px">${d.alamat||'-'}</td>
-      <td><span class="badge ${stsCls}">${d.status_gadai||'-'}</span></td>
-      <td style="font-size:12px;font-weight:600">${d.asal_cabang||'-'}</td>
-      <td><button class="btn-red-sm" onclick="hapusGadai(${i})">🗑️</button></td>
-    </tr>`;
-  }).join('');
-}
-
-function renderNasabah() {
-  const tbl = el('nasabah-table'); if (!tbl) return;
-  const q       = (el('search-nasabah')?.value || '').toLowerCase().trim();
-  const filterSts = el('filter-nasabah-status')?.value || '';
-
-  let filtered = dataNasabah.filter(n => {
-    if (filterSts && n.status_nasabah !== filterSts) return false;
-    if (!q) return true;
-    return [n.nama, n.no_anggota, n.alamat, n.kelurahan, n.kecamatan, n.no_hp].some(v => String(v||'').toLowerCase().includes(q));
-  });
-
-  if (!filtered.length) {
-    tbl.innerHTML = `<tr><td colspan="8"><div class="empty"><div class="icon">👥</div><p>${q||filterSts ? 'Tidak ada data yang cocok' : 'Belum ada data nasabah'}</p></div></td></tr>`;
-    return;
-  }
-
-  tbl.innerHTML = filtered.map(n => {
-    const i = dataNasabah.indexOf(n);
-    const stsCls = n.status_nasabah === 'Baru' ? 'b-green' : 'b-amber';
-    return `<tr>
-      <td style="font-size:12px;font-family:monospace;font-weight:600">${n.no_anggota||'-'}</td>
-      <td><div class="name-cell">${n.nama||'-'}</div></td>
-      <td style="font-size:12px">${n.no_hp||'<span style="color:var(--red);font-size:11px">⚠️ Kosong</span>'}</td>
-      <td style="font-size:12px">${n.alamat||'-'}</td>
-      <td style="font-size:12px">${n.kelurahan||'-'}</td>
-      <td style="font-size:12px">${n.kecamatan||'-'}</td>
-      <td><span class="badge ${stsCls}">${n.status_nasabah||'-'}</span></td>
-      <td><button class="btn-red-sm" onclick="hapusNasabah(${i})">🗑️</button></td>
-    </tr>`;
-  }).join('');
-}
-
-function renderMasterCabang() {
-  const tbl = el('master-cabang-table'); if (!tbl) return;
-  if (!masterCabang.length) {
-    tbl.innerHTML = `<tr><td colspan="3"><div class="empty"><div class="icon">🔌</div><p>Hubungkan ke Sheets untuk melihat master cabang</p></div></td></tr>`;
-    return;
-  }
-  tbl.innerHTML = masterCabang.map(c => `
-    <tr>
-      <td style="font-family:monospace;font-weight:600">${c.kode||'-'}</td>
-      <td style="font-weight:600">${c.nama||'-'}</td>
-      <td style="font-size:12px;color:var(--gray-500)">${c.kota||'-'}</td>
-    </tr>
-  `).join('');
-
-  // Update sidebar cabang info (contoh dari URL config)
-  if (masterCabang.length) {
-    const firstCabang = masterCabang[0];
-    el('sb-cabang-nama').textContent = firstCabang.nama || '—';
-    el('sb-cabang-code').textContent = 'Kode: ' + (firstCabang.kode || '—');
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-// ACTIONS
-// ═══════════════════════════════════════════════════════
-function hapusGadai(i) {
-  if (confirm(`Hapus data gadai "${dataGadai[i]?.nama}"?`)) {
-    dataGadai.splice(i, 1); save(); render(); toast('Data gadai dihapus');
-  }
-}
-function hapusNasabah(i) {
-  if (confirm(`Hapus nasabah "${dataNasabah[i]?.nama}"?`)) {
-    dataNasabah.splice(i, 1); save(); render(); toast('Data nasabah dihapus');
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-// EXPORT EXCEL (menggunakan data lokal sebagai fallback)
-// ═══════════════════════════════════════════════════════
-function exportExcel(jenis) {
-  const XLSX = window.XLSX;
-  if (!XLSX) { toast('Library XLSX tidak tersedia', 'err'); return; }
-
-  let wb = XLSX.utils.book_new();
-
-  if (jenis === 'gadai' || jenis === 'all') {
-    const rows = dataGadai.map(d => ({
-      'TANGGAL':       fmtTgl(d.tanggal),
-      'NO FAKTUR':     d.no_faktur    || '',
-      'NO ANGGOTA':    d.no_anggota   || '',
-      'NO IDENTITAS':  d.no_identitas || '',
-      'NAMA':          d.nama         || '',
-      'NO HP':         d.no_hp        || '',
-      'JENIS BARANG':  d.jenis_barang || '',
-      'MERK BARANG':   d.merk_barang  || '',
-      'TYPE BARANG':   d.type_barang  || '',
-      'IMEI':          d.imei         || '',
-      'PINJAMAN':      d.pinjaman     || 0,
-      'ALAMAT':        d.alamat       || '',
-      'STATUS':        d.status_gadai || '',
-      'ASAL CABANG':   d.asal_cabang  || '',
-    }));
-    const ws = XLSX.utils.json_to_sheet(rows);
-    XLSX.utils.book_append_sheet(wb, ws, 'DATA GADAI AKTIP');
-  }
-
-  if (jenis === 'nasabah' || jenis === 'all') {
-    const rows = dataNasabah.map(n => ({
-      'NO ANGGOTA':     n.no_anggota     || '',
-      'NAMA':           n.nama           || '',
-      'NO HP':          n.no_hp          || '',
-      'ALAMAT':         n.alamat         || '',
-      'KELURAHAN':      n.kelurahan      || '',
-      'KECAMATAN':      n.kecamatan      || '',
-      'STATUS NASABAH': n.status_nasabah || '',
-    }));
-    const ws = XLSX.utils.json_to_sheet(rows);
-    XLSX.utils.book_append_sheet(wb, ws, 'DATA NASABAH');
-  }
-
-  XLSX.writeFile(wb, `PGI-Export-${todayStr()}.xlsx`);
-  toast('✅ Export berhasil!');
-}
-
-// ═══════════════════════════════════════════════════════
-// BACKUP & RESTORE
-// ═══════════════════════════════════════════════════════
-function backupData() {
-  const backup = { versi:'3.0', tgl_backup: new Date().toISOString(), dataGadai, dataNasabah, masterCabang };
-  const blob = new Blob([JSON.stringify(backup,null,2)], { type:'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `pgi-backup-${todayStr()}.json`;
-  a.click(); URL.revokeObjectURL(a.href);
-  toast('💾 Backup berhasil!');
-}
-
-function restoreData(event) {
-  const file = event.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const b = JSON.parse(e.target.result);
-      if (!b.dataGadai && !b.dataNasabah) { toast('❌ File backup tidak valid', 'err'); return; }
-      if (!confirm(`Restore ${(b.dataGadai||[]).length} data gadai dan ${(b.dataNasabah||[]).length} nasabah?\nData saat ini akan diganti.`)) return;
-      dataGadai   = b.dataGadai   || [];
-      dataNasabah = b.dataNasabah || [];
-      masterCabang = b.masterCabang || masterCabang;
-      localStorage.setItem('pgi_gadai',   JSON.stringify(dataGadai));
-      localStorage.setItem('pgi_nasabah', JSON.stringify(dataNasabah));
-      render(); renderMasterCabang();
-      toast(`✅ Restore berhasil! ${dataGadai.length} data gadai.`);
-    } catch { toast('❌ File backup rusak', 'err'); }
-    event.target.value = '';
-  };
-  reader.readAsText(file);
-}
-
-function resetSemua() {
-  if (!confirm('⚠️ Hapus SEMUA data lokal?\nTidak bisa dibatalkan!')) return;
-  if (!confirm('Konfirmasi terakhir: yakin hapus semua?')) return;
-  dataGadai = []; dataNasabah = [];
-  localStorage.setItem('pgi_gadai',   '[]');
-  localStorage.setItem('pgi_nasabah', '[]');
-  render(); toast('Semua data direset');
-}
-
-// ═══════════════════════════════════════════════════════
-// GOOGLE SHEETS SYNC
-// ═══════════════════════════════════════════════════════
-function setSyncStatus(status) {
-  const el2 = el('sync-status'); if (!el2) return;
-  const waktu = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  const badge = el('conn-badge');
-  if (status === 'syncing') {
-    el2.textContent = '⏳ Menyinkronkan...';
-    el2.style.color = 'rgba(255,255,255,0.4)';
-  } else if (status === 'online') {
-    el2.textContent = `🟢 Tersinkron ${waktu}`;
-    el2.style.color = '#6ee7b7';
-    if (badge) { badge.className = 'badge b-green'; badge.textContent = '🟢 Terhubung'; }
-  } else if (status === 'offline') {
-    el2.textContent = '🔴 Gagal terhubung';
-    el2.style.color = '#fca5a5';
-    if (badge) { badge.className = 'badge b-red'; badge.textContent = '🔴 Gagal'; }
-  } else if (status === 'unsaved') {
-    el2.textContent = '🟡 Ada perubahan — klik Sync';
-    el2.style.color = '#fcd34d';
-    if (badge) { badge.className = 'badge b-amber'; badge.textContent = '🟡 Belum Sync'; }
-  }
-}
-
-async function kirimKeSheet(sheetName, rows) {
-  if (!SHEETS_URL) return;
-  await fetch(SHEETS_URL, {
-    method: 'POST', mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ sheet: sheetName, rows })
-  });
-}
-
-async function syncKeSheets() {
-  if (!SHEETS_URL) { toast('⚠️ URL Google Sheets belum diisi. Buka menu Konfigurasi.', 'err'); goTo('config', document.querySelector('.nav-item:last-child')); return; }
-  if (isSyncing) return;
-  isSyncing = true; setSyncStatus('syncing');
-  el('loading-bar').style.display = 'block';
-
-  try {
-    // Sheet 1 — DATA GADAI AKTIP
-    const rowsGadai = dataGadai.map(d => ({
-      'TANGGAL':       fmtTgl(d.tanggal),
-      'NO FAKTUR':     String(d.no_faktur    || ''),
-      'NO ANGGOTA':    String(d.no_anggota   || ''),
-      'NO IDENTITAS':  String(d.no_identitas || ''),
-      'NAMA':          String(d.nama         || ''),
-      'NO HP':         String(d.no_hp        || ''),
-      'JENIS BARANG':  String(d.jenis_barang || ''),
-      'MERK BARANG':   String(d.merk_barang  || ''),
-      'TYPE BARANG':   String(d.type_barang  || ''),
-      'IMEI':          String(d.imei         || ''),
-      'PINJAMAN':      Number(d.pinjaman     || 0),
-      'ALAMAT':        String(d.alamat       || ''),
-      'STATUS':        String(d.status_gadai || ''),
-      'ASAL CABANG':   String(d.asal_cabang  || ''),
-    }));
-    await kirimKeSheet('DATA GADAI AKTIP', rowsGadai.length ? rowsGadai : [{ 'TANGGAL':'', 'NAMA':'' }]);
-
-    // Sheet 2 — DATA NASABAH
-    const rowsNasabah = dataNasabah.map(n => ({
-      'NO ANGGOTA':     String(n.no_anggota     || ''),
-      'NAMA':           String(n.nama           || ''),
-      'NO HP':          String(n.no_hp          || ''),
-      'ALAMAT':         String(n.alamat         || ''),
-      'KELURAHAN':      String(n.kelurahan      || ''),
-      'KECAMATAN':      String(n.kecamatan      || ''),
-      'STATUS NASABAH': String(n.status_nasabah || ''),
-    }));
-    await kirimKeSheet('DATA NASABAH', rowsNasabah.length ? rowsNasabah : [{ 'NO ANGGOTA':'', 'NAMA':'' }]);
-
-    setSyncStatus('online');
-    toast('✅ Sync ke Google Sheets selesai!');
-  } catch (err) {
-    setSyncStatus('offline');
-    toast('❌ Gagal sync. Periksa koneksi & URL.', 'err');
-  } finally {
-    isSyncing = false;
-    el('loading-bar').style.display = 'none';
-  }
-}
-
-async function loadFromSheets() {
-  if (!SHEETS_URL) { render(); return; }
-  el('loading-bar').style.display = 'block';
-  try {
-    const res  = await fetch(SHEETS_URL + '?action=getAll');
-    const json = await res.json();
-    if (json.status === 'ok') {
-      const STR = v => (v !== null && v !== undefined) ? String(v) : '';
-
-      // Sheet 1
-      if (json.gadai && json.gadai.length) {
-        dataGadai = json.gadai.map(r => ({
-          tanggal:      STR(r['TANGGAL']||r.tanggal),
-          no_faktur:    STR(r['NO FAKTUR']||r.no_faktur),
-          no_anggota:   STR(r['NO ANGGOTA']||r.no_anggota),
-          no_identitas: STR(r['NO IDENTITAS']||r.no_identitas),
-          nama:         STR(r['NAMA']||r.nama),
-          no_hp:        STR(r['NO HP']||r.no_hp),
-          jenis_barang: STR(r['JENIS BARANG']||r.jenis_barang),
-          merk_barang:  STR(r['MERK BARANG']||r.merk_barang),
-          type_barang:  STR(r['TYPE BARANG']||r.type_barang),
-          imei:         STR(r['IMEI']||r.imei),
-          pinjaman:     Number(r['PINJAMAN']||r.pinjaman||0),
-          alamat:       STR(r['ALAMAT']||r.alamat),
-          status_gadai: STR(r['STATUS']||r.status_gadai),
-          asal_cabang:  STR(r['ASAL CABANG']||r.asal_cabang),
-        })).filter(d => d.nama || d.no_faktur);
-        localStorage.setItem('pgi_gadai', JSON.stringify(dataGadai));
-      }
-
-      // Sheet 2
-      if (json.nasabah && json.nasabah.length) {
-        dataNasabah = json.nasabah.map(r => ({
-          no_anggota:     STR(r['NO ANGGOTA']||r.no_anggota),
-          nama:           STR(r['NAMA']||r.nama),
-          no_hp:          STR(r['NO HP']||r.no_hp),
-          alamat:         STR(r['ALAMAT']||r.alamat),
-          kelurahan:      STR(r['KELURAHAN']||r.kelurahan),
-          kecamatan:      STR(r['KECAMATAN']||r.kecamatan),
-          status_nasabah: STR(r['STATUS NASABAH']||r.status_nasabah),
-        })).filter(n => n.nama || n.no_anggota);
-        localStorage.setItem('pgi_nasabah', JSON.stringify(dataNasabah));
-      }
-
-      // Sheet 3 — MASTER CABANG
-      if (json.masterCabang && json.masterCabang.length) {
-        masterCabang = json.masterCabang.map(r => ({
-          kode: STR(r['KODE CABANG']||r.kode||r['KODE']||''),
-          nama: STR(r['NAMA CABANG']||r.nama||r['NAMA']||''),
-          kota: STR(r['KOTA']||r['KOTA/KAB']||r.kota||''),
-        })).filter(c => c.kode || c.nama);
-        localStorage.setItem('pgi_master_cabang', JSON.stringify(masterCabang));
-      }
-
-      setSyncStatus('online');
-    }
-  } catch { setSyncStatus('offline'); }
-  finally {
-    el('loading-bar').style.display = 'none';
-    render();
-    renderMasterCabang();
-  }
-}
-
-async function testKoneksi() {
-  const url = el('config-url').value.trim();
-  const resEl = el('test-result');
-  if (!url) { resEl.innerHTML = '<span style="color:var(--red)">⚠️ URL belum diisi.</span>'; return; }
-  SHEETS_URL = url;
-  localStorage.setItem('pgi_sheets_url', url);
-  syncUrlFields();
-  resEl.innerHTML = '<span style="color:var(--gray-400)">⏳ Menghubungkan...</span>';
-  try {
-    const res = await fetch(url + '?action=ping');
-    const json = await res.json();
-    if (json.status === 'ok' || json.pong) {
-      resEl.innerHTML = '<span style="color:var(--green)">✅ Koneksi berhasil! Sheets terhubung.</span>';
-      setSyncStatus('online');
-      loadFromSheets();
-    } else {
-      resEl.innerHTML = `<span style="color:var(--amber)">⚠️ Terhubung tapi respons tidak dikenali: ${JSON.stringify(json)}</span>`;
-    }
-  } catch (e) {
-    resEl.innerHTML = `<span style="color:var(--red)">❌ Gagal: ${e.message}. Pastikan URL Apps Script benar dan sudah di-deploy sebagai "Anyone".</span>`;
-    setSyncStatus('offline');
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-// ROUTING
-// ═══════════════════════════════════════════════════════
-function goTo(id, elNav) {
+// ── ROUTING ──────────────────────────────────────────────────────────────────
+function goTo(id, navEl) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el('page-' + id).classList.add('active');
-  if (elNav) elNav.classList.add('active');
-  const titles = { gadai:'Data Gadai Aktif', nasabah:'Data Nasabah', config:'Konfigurasi' };
+  if (navEl) navEl.classList.add('active');
+  const titles = { gadai: 'Input Data Gadai', nasabah: 'Data Nasabah' };
   el('page-title').textContent = titles[id] || id;
   closeSidebar();
-  if (id === 'config') renderMasterCabang();
+  renderAll();
 }
+
 function toggleSidebar() {
   el('sidebar').classList.toggle('open');
   el('overlay').classList.toggle('show');
@@ -1270,28 +474,442 @@ function closeSidebar() {
   el('overlay').classList.remove('show');
 }
 
-// ═══════════════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════════════
+// ── GANTI CABANG ─────────────────────────────────────────────────────────────
+function gantCabang(kode) {
+  aktivCabang = kode;
+  localStorage.setItem('pgi_cabang', kode);
+  el('topbar-cabang').textContent = kode;
+  el('badge-cabang-name').textContent = CABANG_CONFIG[kode]?.label || kode;
+  el('cabang-label-gadai').textContent = kode;
+  el('cabang-label-nasabah').textContent = kode;
+
+  // Cek URL tersedia
+  if (!CABANG_CONFIG[kode]?.url) {
+    setSyncStatus('offline', 'URL cabang belum tersedia');
+    toast('⚠️ URL Google Sheets untuk ' + kode + ' belum tersedia', 'err');
+    return;
+  }
+  dataGadai = []; dataNasabah = []; dataCabang = [];
+  renderAll();
+  loadData();
+}
+
+// ── SYNC STATUS ───────────────────────────────────────────────────────────────
+function setSyncStatus(status, msg) {
+  const dot  = el('sync-dot');
+  const text = el('sync-text');
+  if (status === 'syncing') { dot.className='sync-dot spin'; text.textContent = msg||'Menyinkronkan...'; }
+  else if (status === 'ok') { dot.className='sync-dot green'; text.textContent = msg||'Tersinkron'; }
+  else { dot.className='sync-dot red'; text.textContent = msg||'Gagal terhubung'; }
+}
+
+function setLoading(on) {
+  const bar = el('loading-bar');
+  if (on) { bar.style.width='0%'; bar.className='loading-bar active'; }
+  else     { bar.className='loading-bar done'; setTimeout(()=>{ bar.className='loading-bar'; bar.style.width='0%'; }, 500); }
+}
+
+// ── LOAD DATA FROM SHEETS ─────────────────────────────────────────────────────
+async function loadData() {
+  const url = sheetsUrl();
+  if (!url) { setSyncStatus('offline','URL belum tersedia'); return; }
+  if (isLoading) return;
+  isLoading = true;
+  setSyncStatus('syncing');
+  setLoading(true);
+
+  try {
+    const res  = await fetch(url + '?action=get&t=' + Date.now());
+    const json = await res.json();
+
+    if (json.status === 'ok') {
+      dataGadai   = json.gadai   || [];
+      dataNasabah = json.nasabah || [];
+      dataCabang  = json.cabang  || [];
+      setSyncStatus('ok', 'Tersinkron ' + new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}));
+      renderAll();
+    } else {
+      setSyncStatus('offline', 'Respons tidak valid');
+    }
+  } catch(e) {
+    setSyncStatus('offline', 'Gagal terhubung');
+    toast('❌ Gagal memuat data. Cek koneksi.', 'err');
+  } finally {
+    isLoading = false;
+    setLoading(false);
+  }
+}
+
+// ── KIRIM DATA KE SHEET ───────────────────────────────────────────────────────
+async function kirimData(payload) {
+  const url = sheetsUrl();
+  if (!url) throw new Error('URL tidak tersedia');
+  await fetch(url, {
+    method: 'POST',
+    mode:   'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body:    JSON.stringify(payload)
+  });
+}
+
+// ── PARSER ────────────────────────────────────────────────────────────────────
+function bacaDanSimpan() {
+  const raw    = el('pg-paste').value;
+  const errEl  = el('pg-error');
+  const prvEl  = el('pg-preview');
+  errEl.style.display = 'none';
+  prvEl.style.display = 'none';
+  parsedData = null;
+
+  if (!raw.trim()) {
+    errEl.textContent = '⚠️ Kotak paste masih kosong.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Parse fields
+  const noFaktur    = ambilField(raw, 'No\\. Faktur', 'No Faktur');
+  const noAnggota   = ambilField(raw, 'No\\. Anggota', 'No Anggota');
+  const jenisId     = ambilField(raw, 'Jenis Identitas');
+  const noIdentitas = ambilField(raw, 'No\\. Identitas', 'No Identitas', 'NIK');
+  const nama        = ambilField(raw, 'Nama');
+  const alamat      = ambilField(raw, 'Alamat');
+  const wa          = ambilField(raw, 'No\\. Handphone', 'No Handphone', 'Handphone');
+  const jenisBrg    = ambilField(raw, 'Jenis Barang', 'Jenis Kendaraan');
+  const merkBrg     = ambilField(raw, 'Merk Barang', 'Merk');
+  const tipeBrg     = ambilField(raw, 'Tipe Barang', 'Tipe');
+  const imei        = ambilImei(raw);
+  const pinjaman    = ambilField(raw, 'Pinjaman Maksimum');
+  const tglGadai    = ambilField(raw, 'Tanggal Gadai');
+  const tglJT       = ambilField(raw, 'Tanggal Jatuh Tempo', 'Jatuh Tempo');
+  const statusGadai = ambilField(raw, 'Status Gadai');
+  const posisiBarang= ambilField(raw, 'Posisi Barang');
+
+  // Tanggal: ambil dari no faktur
+  const tglISO = tglDariFaktur(noFaktur) || parseTglIndo(tglGadai);
+  const tglJTISO = parseTglIndo(tglJT);
+  const nominalNum = bersihkanNominal(pinjaman);
+
+  if (!noFaktur && !nama) {
+    errEl.textContent = '❌ Data tidak terbaca. Pastikan copy seluruh halaman Detail Gadai (Ctrl+A → Ctrl+C).';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (!nama) {
+    errEl.textContent = '❌ Nama nasabah tidak terbaca. Pastikan halaman terbuka penuh sebelum copy.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Asal cabang dari master
+  const namaAsalCabang = asalCabang(noFaktur);
+
+  parsedData = {
+    // Sheet DATA GADAI AKTIP
+    tanggal:        tglISO,
+    no_faktur:      noFaktur,
+    no_anggota:     noAnggota,
+    no_identitas:   noIdentitas,
+    nama:           nama,
+    no_hp:          wa,
+    jenis_barang:   jenisBrg,
+    merk_barang:    merkBrg,
+    type_barang:    tipeBrg,
+    imei:           imei,
+    pinjaman:       nominalNum,
+    alamat:         alamat,
+    status:         statusGadai || 'Berjalan',
+    asal_cabang:    namaAsalCabang,
+    // Extra (untuk data nasabah & display)
+    no_anggota_raw: noAnggota,
+    wa_raw:         wa,
+    tgl_jt:         tglJTISO,
+    tgl_gadai:      tglGadai,
+  };
+
+  // Tampilkan preview
+  const rows = [
+    ['Tanggal (dari Faktur)', tglISO ? fmtTgl(tglISO) : '⚠️ tidak terbaca', tglISO?'✅':'⚠️'],
+    ['No. Faktur',   noFaktur   || '⚠️', noFaktur?'✅':'⚠️'],
+    ['No. Anggota',  noAnggota  || '⚠️', noAnggota?'✅':'⚠️'],
+    ['No. Identitas',noIdentitas|| '-',  noIdentitas?'✅':'➖'],
+    ['Nama',         nama       || '⚠️', nama?'✅':'⚠️'],
+    ['No. HP/WA',    wa         || '⚠️ kosong', wa?'✅':'⚠️'],
+    ['Barang',       [jenisBrg,merkBrg,tipeBrg].filter(Boolean).join(' — ')||'-', jenisBrg?'✅':'⚠️'],
+    ['IMEI / SN',    imei       || '-', imei?'✅':'➖'],
+    ['Pinjaman Maks',nominalNum ? moneyFmt(nominalNum) : '⚠️', nominalNum?'✅':'⚠️'],
+    ['Alamat',       alamat     || '-', alamat?'✅':'➖'],
+    ['Status Gadai', statusGadai|| '-', statusGadai?'✅':'➖'],
+    ['Asal Cabang',  namaAsalCabang || (dataCabang.length ? '— tidak ditemukan —' : '— (master cabang kosong) —'), namaAsalCabang?'✅':'➖'],
+  ];
+
+  el('pg-preview-rows').innerHTML = rows.map(([l,v,ic]) =>
+    `<div class="preview-row"><span class="preview-label">${escHtml(l)}</span><span class="preview-val">${escHtml(String(v))}</span><span>${ic}</span></div>`
+  ).join('');
+  prvEl.style.display = 'block';
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function konfirmasiSimpan() {
+  if (!parsedData) return;
+  const url = sheetsUrl();
+  if (!url) { toast('❌ URL Google Sheets belum tersedia untuk cabang ini', 'err'); return; }
+
+  // Cek duplikat no faktur di data lokal
+  const dup = dataGadai.find(r => String(r['NO FAKTUR']||r['no_faktur']||'').trim() === parsedData.no_faktur);
+  if (dup) { toast(`⚠️ No. Faktur ${parsedData.no_faktur} sudah ada!`, 'err'); return; }
+
+  const btnSimpan = el('btn-simpan');
+  btnSimpan.disabled = true;
+  btnSimpan.innerHTML = '<span class="spinner-sm"></span> Menyimpan...';
+  setSyncStatus('syncing');
+
+  try {
+    // ── Payload untuk sheet DATA GADAI AKTIP ──
+    const rowGadai = {
+      'TANGGAL':      fmtTgl(parsedData.tanggal),
+      'NO FAKTUR':    parsedData.no_faktur,
+      'NO ANGGOTA':   parsedData.no_anggota,
+      'NO IDENTITAS': parsedData.no_identitas,
+      'NAMA':         parsedData.nama,
+      'NO HP':        parsedData.no_hp,
+      'JENIS BARANG': parsedData.jenis_barang,
+      'MERK BARANG':  parsedData.merk_barang,
+      'TYPE BARANG':  parsedData.type_barang,
+      'IMEI':         parsedData.imei,
+      'PINJAMAN':     parsedData.pinjaman,
+      'ALAMAT':       parsedData.alamat,
+      'STATUS':       parsedData.status,
+      'ASAL CABANG':  parsedData.asal_cabang,
+    };
+
+    // ── Payload untuk sheet DATA NASABAH ──
+    // Cek apakah no anggota sudah ada (hindari duplikat)
+    const noAnggota = parsedData.no_anggota;
+    const nasabahAda = noAnggota && dataNasabah.find(r =>
+      String(r['NO ANGGOTA']||r['no_anggota']||'').trim() === String(noAnggota).trim()
+    );
+
+    let rowNasabah = null;
+    if (!nasabahAda && noAnggota) {
+      rowNasabah = {
+        'NO ANGGOTA':  noAnggota,
+        'NAMA':        parsedData.nama,
+        'NO HP':       parsedData.no_hp,
+        'ALAMAT':      parsedData.alamat,
+        'KELURAHAN':   '',
+        'KECAMATAN':   '',
+        'STATUS NASABAH': '',
+      };
+    }
+
+    await kirimData({
+      action:     'append',
+      cabang:     aktivCabang,
+      gadai:      rowGadai,
+      nasabah:    rowNasabah, // null jika sudah ada
+    });
+
+    // Optimistic update lokal
+    dataGadai.push({ ...rowGadai, _local: true });
+    if (rowNasabah) dataNasabah.push({ ...rowNasabah, _local: true });
+
+    const msgNasabah = nasabahAda
+      ? ' (nasabah sudah terdaftar, dilewati)'
+      : (noAnggota ? ' + nasabah baru ditambahkan' : '');
+
+    toast(`✅ ${parsedData.nama} berhasil disimpan!${msgNasabah}`);
+    clearPaste();
+    renderAll();
+    setSyncStatus('ok', 'Data tersimpan');
+
+    // Reload setelah 3 detik untuk konfirmasi dari server
+    setTimeout(loadData, 3000);
+
+  } catch(e) {
+    setSyncStatus('offline', 'Gagal menyimpan');
+    toast('❌ Gagal menyimpan ke Google Sheets. Cek koneksi.', 'err');
+  } finally {
+    btnSimpan.disabled = false;
+    btnSimpan.innerHTML = '💾 Konfirmasi Simpan';
+  }
+}
+
+function clearPaste() {
+  el('pg-paste').value = '';
+  el('pg-preview').style.display = 'none';
+  el('pg-error').style.display   = 'none';
+  parsedData = null;
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderAll() {
+  updateStats();
+  renderGadai();
+  renderNasabah();
+}
+
+function updateStats() {
+  const bulanIni = new Date().getMonth();
+  const thnIni   = new Date().getFullYear();
+  const bulanIniGadai = dataGadai.filter(r => {
+    const tgl = String(r['TANGGAL']||'');
+    const d   = parseSheetDate(tgl);
+    return d && d.getMonth()===bulanIni && d.getFullYear()===thnIni;
+  });
+  const totalPinjamanBulan = bulanIniGadai.reduce((s,r)=>s+Number(r['PINJAMAN']||0),0);
+
+  el('s-total').textContent   = dataGadai.length || '0';
+  el('s-bulan').textContent   = bulanIniGadai.length || '0';
+  el('s-nasabah').textContent = dataNasabah.length || '0';
+  el('s-nominal').textContent = totalPinjamanBulan ? moneyFmt(totalPinjamanBulan) : 'Rp 0';
+
+  el('sn-total').textContent  = dataNasabah.length || '0';
+  el('sn-aktif').textContent  = dataGadai.filter(r => String(r['STATUS']||'').toLowerCase().includes('berjalan')).length || '0';
+  el('sn-cabang').textContent = CABANG_CONFIG[aktivCabang]?.label?.split('—')[0]?.trim() || aktivCabang;
+  el('sn-baru').textContent   = bulanIniGadai.length || '0';
+  el('nasabah-count').textContent = dataNasabah.length + ' nasabah';
+}
+
+function parseSheetDate(str) {
+  if (!str) return null;
+  // Support dd/mm/yyyy or yyyy-mm-dd
+  const m1 = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m1) return new Date(`${m1[3]}-${m1[2].padStart(2,'0')}-${m1[1].padStart(2,'0')}`);
+  const d = new Date(str);
+  return isNaN(d) ? null : d;
+}
+
+function renderGadai() {
+  const wrap = el('tbl-gadai-wrap');
+  if (!wrap) return;
+  const q = (el('search-gadai')?.value||'').toLowerCase().trim();
+  const filterBulan = el('filter-bulan')?.value || ''; // YYYY-MM
+
+  let filtered = dataGadai.filter(r => {
+    const matchQ = !q || ['NO FAKTUR','NO ANGGOTA','NAMA','IMEI','JENIS BARANG','MERK BARANG','TYPE BARANG'].some(k =>
+      String(r[k]||'').toLowerCase().includes(q));
+    let matchBulan = true;
+    if (filterBulan) {
+      const d = parseSheetDate(String(r['TANGGAL']||''));
+      if (d) {
+        const [y,m] = filterBulan.split('-');
+        matchBulan = d.getFullYear()===Number(y) && (d.getMonth()+1)===Number(m);
+      } else { matchBulan = false; }
+    }
+    return matchQ && matchBulan;
+  });
+
+  if (!filtered.length) {
+    wrap.innerHTML = `<div class="empty"><div class="icon">${dataGadai.length?'🔍':'📭'}</div><p>${q||filterBulan?'Tidak ada data sesuai filter':'Belum ada data gadai'}</p></div>`;
+    return;
+  }
+
+  const rows = [...filtered].reverse().map((r,idx) => {
+    const asalCbg = String(r['ASAL CABANG']||'').trim();
+    return `<tr>
+      <td style="font-size:11px;color:var(--gray-400);text-align:center">${filtered.length - idx}</td>
+      <td>${fmtTglPendek(parseSheetDate(String(r['TANGGAL']||'')))}</td>
+      <td style="font-size:11px;font-weight:700;color:var(--blue-mid)">${escHtml(String(r['NO FAKTUR']||'-'))}</td>
+      <td style="font-size:11px;color:var(--gray-600)">${escHtml(bersihNol(r['NO ANGGOTA']))}</td>
+      <td>
+        <div class="name-cell">${escHtml(String(r['NAMA']||'-'))}</div>
+        <div class="sub-text">${escHtml(String(r['NO HP']||'-'))}</div>
+      </td>
+      <td style="font-size:12px">${escHtml([r['JENIS BARANG'],r['MERK BARANG'],r['TYPE BARANG']].filter(Boolean).join(' — ') || '-')}</td>
+      <td style="font-size:11px;color:var(--gray-600)">${escHtml(String(r['IMEI']||'-'))}</td>
+      <td style="font-weight:600">${moneyFmt(r['PINJAMAN'])}</td>
+      <td style="font-size:11px">${escHtml(String(r['ALAMAT']||'-'))}</td>
+      <td><span class="badge ${String(r['STATUS']||'').toLowerCase().includes('berjalan')?'b-green':'b-gray'}">${escHtml(String(r['STATUS']||'-'))}</span></td>
+      ${asalCbg ? `<td><span class="badge b-purple" style="font-size:10px">${escHtml(asalCbg)}</span></td>` : '<td></td>'}
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>#</th><th>Tanggal</th><th>No. Faktur</th><th>No. Anggota</th>
+      <th>Nama & No. HP</th><th>Barang</th><th>IMEI / SN</th>
+      <th>Pinjaman</th><th>Alamat</th><th>Status</th><th>Asal Cabang</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function renderNasabah() {
+  const wrap = el('tbl-nasabah-wrap');
+  if (!wrap) return;
+  const q = (el('search-nasabah')?.value||'').toLowerCase().trim();
+
+  let filtered = dataNasabah.filter(r => {
+    if (!q) return true;
+    return ['NO ANGGOTA','NAMA','NO HP','ALAMAT','KELURAHAN','KECAMATAN'].some(k =>
+      String(r[k]||'').toLowerCase().includes(q));
+  });
+
+  el('nasabah-count').textContent = filtered.length + ' nasabah';
+
+  if (!filtered.length) {
+    wrap.innerHTML = `<div class="empty"><div class="icon">${dataNasabah.length?'🔍':'📭'}</div><p>${q?'Tidak ditemukan':'Belum ada data nasabah'}</p></div>`;
+    return;
+  }
+
+  const rows = filtered.map((r,idx) => {
+    const status = String(r['STATUS NASABAH']||'').trim();
+    const statusCls = status.toLowerCase().includes('baru') ? 'b-green' : status ? 'b-amber' : 'b-gray';
+    return `<tr>
+      <td style="font-size:11px;color:var(--gray-400);text-align:center">${idx+1}</td>
+      <td style="font-size:11px;font-weight:700;color:var(--gray-600)">${escHtml(bersihNol(r['NO ANGGOTA']))}</td>
+      <td>
+        <div class="name-cell">${escHtml(String(r['NAMA']||'-'))}</div>
+      </td>
+      <td style="font-size:12px">${escHtml(String(r['NO HP']||'-'))}</td>
+      <td style="font-size:12px">${escHtml(String(r['ALAMAT']||'-'))}</td>
+      <td style="font-size:12px">${escHtml(String(r['KELURAHAN']||'-'))}</td>
+      <td style="font-size:12px">${escHtml(String(r['KECAMATAN']||'-'))}</td>
+      <td>${status ? `<span class="badge ${statusCls}">${escHtml(status)}</span>` : '<span style="font-size:11px;color:var(--gray-400)">—</span>'}</td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>#</th><th>No. Anggota</th><th>Nama</th><th>No. HP</th>
+      <th>Alamat</th><th>Kelurahan</th><th>Kecamatan</th><th>Status Nasabah</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
 function toast(msg, type='ok') {
   const t = el('toast');
   t.style.background = type==='err' ? '#dc2626' : '#059669';
-  t.textContent = msg; t.style.display = 'block';
-  setTimeout(() => t.style.display='none', 3500);
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(()=> t.style.display='none', 4000);
 }
 
-// ═══════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════
-const d = new Date();
-el('sidebar-date').textContent = d.toLocaleDateString('id-ID', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
-syncUrlFields();
-render();
-renderMasterCabang();
-loadFromSheets();
-</script>
+// ── INIT ─────────────────────────────────────────────────────────────────────
+(function init() {
+  const d = new Date();
+  el('sidebar-date').textContent = d.toLocaleDateString('id-ID', {weekday:'long',day:'2-digit',month:'long',year:'numeric'});
 
-<!-- XLSX for export -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  // Restore cabang pilihan
+  const savedCabang = localStorage.getItem('pgi_cabang') || 'CMS006';
+  el('select-cabang').value = savedCabang;
+  aktivCabang = savedCabang;
+  el('topbar-cabang').textContent = savedCabang;
+  el('badge-cabang-name').textContent = CABANG_CONFIG[savedCabang]?.label || savedCabang;
+  el('cabang-label-gadai').textContent = savedCabang;
+  el('cabang-label-nasabah').textContent = savedCabang;
+
+  loadData();
+
+  // Auto-refresh setiap 5 menit
+  setInterval(loadData, 5 * 60 * 1000);
+})();
+</script>
 </body>
 </html>
